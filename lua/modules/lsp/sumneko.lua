@@ -14,11 +14,7 @@ add "$VIMRUNTIME"
 add "~/.config/nvim"
 
 M.config = {
-  cmd = {
-    sumneko_root .. "/bin/Linux/lua-language-server",
-    "-E",
-    sumneko_root .. "/main.lua",
-  },
+  cmd = { "lua-language-server" },
   on_attach = Util.lsp_on_attach,
   on_init = Util.lsp_on_init,
   on_new_config = function(config, root)

@@ -19,15 +19,11 @@ packer.init({
 local plugins = {
   { "wbthomason/packer.nvim", opt = false },
 
-  require("plugins.null-ls").plugin,
   require("plugins.nvim-jdtls").plugin,
   require("plugins.rust-tools").plugin,
   require("plugins.flutter-tools").plugin,
   require("plugins.telescope").plugin,
   require("plugins.treesitter").plugin,
-  require("plugins.tsserver").plugin,
-
-  { "dart-lang/dart-vim-plugin" },
 
   { "tpope/vim-commentary", keys = "gc" },
 
@@ -122,7 +118,7 @@ local plugins = {
   {
     "hrsh7th/nvim-compe",
     event = "InsertEnter",
-    wants = "LuaSnip",
+    wants = { "LuaSnip" },
     config = function()
       require "plugins.compe"
     end,
@@ -160,6 +156,9 @@ local plugins = {
     config = function()
       require "modules.lsp"
     end,
+    requires = {
+      "jose-elias-alvarez/null-ls.nvim",
+    }
   },
 
   {
@@ -333,7 +332,6 @@ local plugins = {
   },
   {
     "TovarishFin/vim-solidity",
-    ft = "sol",
   },
 }
 

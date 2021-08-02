@@ -24,6 +24,11 @@ local servers = {
   --     config = "./tsconfig.json"
   --   },
   -- },
+  tsserver = {
+    init_options = { documentFormatting = false },
+    on_init = Util.lsp_on_init,
+    root_dir = vim.loop.cwd,
+  },
   sumneko_lua = require("modules.lsp.sumneko").config,
   jsonls = require("modules.lsp.json").config,
   svelte = require("modules.lsp.svelte").config,
@@ -61,21 +66,18 @@ local servers = {
   -- ["null-ls"] = {},
 }
 
+require("plugins.null-ls").setup()
+
 for name, opts in pairs(servers) do
   if type(opts) == "function" then
     opts()
   else
     local client = lspconfig[name]
-    client.setup {
+    client.setup(vim.tbl_extend("force", {
       flags = { debounce_text_changes = 150 },
-      cmd = opts.cmd or client.cmd,
-      filetypes = opts.filetypes or client.filetypes,
-      on_attach = opts.on_attach or Util.lsp_on_attach,
-      on_init = opts.on_init or Util.lsp_on_init,
-      handlers = opts.handlers or client.handlers,
-      root_dir = opts.root_dir or client.root_dir,
-      capabilities = opts.capabilities or capabilities,
-      settings = opts.settings or {},
-    }
+      on_attach = Util.lsp_on_attach,
+      on_init = Util.lsp_on_init,
+      capabilities = capabilities,
+    }, opts))
   end
 end
