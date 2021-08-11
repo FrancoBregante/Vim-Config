@@ -25,6 +25,25 @@ local plugins = {
   require("plugins.telescope").plugin,
   require("plugins.treesitter").plugin,
 
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      vim.notify = require("notify")
+      vim.cmd [[
+        hi! NotifyERROR      guifg=#e27878
+        hi! NotifyWARN       guifg=#e2a478
+        hi! NotifyINFO       guifg=#b4be82
+        hi! NotifyDEBUG      guifg=#89b8c2
+        hi! NotifyTRACE      guifg=#c6c8d1
+        hi! NotifyERRORTitle guifg=#e98989
+        hi! NotifyWARNTitle  guifg=#e9b189
+        hi! NotifyINFOTitle  guifg=#c0ca8e
+        hi! NotifyDEBUGTitle guifg=#95c4ce
+        hi! NotifyTRACETitle guifg=#d2d4de
+      ]]
+    end
+  },
+
   { "tpope/vim-commentary", keys = "gc" },
 
   {
@@ -114,6 +133,17 @@ local plugins = {
       require "plugins.nvim-tree"
     end,
   },
+
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   config = function()
+  --     require "plugins.compe"
+  --   end,
+  --   requires = {
+  --     "hrsh7th/cmp-path",
+  --     "hrsh7th/cmp-nvim-lsp",
+  --   },
+  -- },
 
   {
     "hrsh7th/nvim-compe",

@@ -2,7 +2,7 @@ local M = {}
 
 M.plugin = {
   "nvim-telescope/telescope.nvim",
-  module = "telescope",
+  module_pattern = { "telescope", "telescope.*" },
   cmd = "Telescope",
   keys = {
     {"", "<C-p>"},
@@ -28,7 +28,10 @@ M.plugin = {
       requires = {
         {
           "tami5/sql.nvim",
-          module = "sql",
+          setup = function()
+            vim.g.sql_clib_path = "/lib64/libsqlite3.so.0.8.6"
+          end,
+          module_pattern = { "sql", "sql.*" },
         },
       },
     },
@@ -174,7 +177,6 @@ M.config = function()
   pcall(telescope.load_extension, "fzf") -- superfast sorter
   pcall(telescope.load_extension, "media_files") -- media preview
   pcall(telescope.load_extension, "frecency") -- frecency
-  pcall(telescope.load_extension, "dap") -- DAP integrations
 
   M.arecibo = function()
     telescope.extensions.arecibo.websearch(M.no_preview())

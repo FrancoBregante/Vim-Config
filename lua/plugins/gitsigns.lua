@@ -26,7 +26,6 @@ require("gitsigns").setup {
   sign_priority = 5,
   update_debounce = 500,
   status_formatter = nil, -- Use default
-  use_decoration_api = true,
   use_internal_diff = true,
 }
 
